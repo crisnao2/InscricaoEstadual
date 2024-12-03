@@ -40,7 +40,7 @@ class Tocantins extends Ceara
         }
 
         // se o corpo não tiver 9 digitos não é valido
-        if ($valid && strlen($inscricao_estadual) != 9) {
+        if ($valid && strlen($corpo) != 9) {
             $valid = false;
         }
 
