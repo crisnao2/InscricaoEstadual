@@ -17,20 +17,22 @@ class Bahia implements ValidadorInteface
      */
     public static function check($inscricao_estadual)
     {
-
         $valid = true;
-        // se não tiver 8 ou 9 digitos não é valido
 
+        $inscricao_estadual = str_pad($inscricao_estadual , 8, '0' , STR_PAD_LEFT);
+
+        // se não tiver 8 ou 9 digitos não é valido
         $length = strlen($inscricao_estadual);
 
         if ($length !== 9 && $length !== 8) {
             $valid = false;
         }
+
         if ($valid && !self::calculaDigitos($inscricao_estadual)) {
             $valid = false;
         }
-        return $valid;
 
+        return $valid;
     }
 
     /**

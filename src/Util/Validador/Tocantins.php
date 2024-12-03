@@ -27,17 +27,21 @@ class Tocantins extends Ceara
     protected static function checkAntiga($inscricao_estadual)
     {
         $valid = true;
-        // se não tiver 11 digitos não é valido
-        if (strlen($inscricao_estadual) != 11) {
-            $valid = false;
-        }
+
         if ($valid) {
             $categoria = substr($inscricao_estadual, 2, 2);
             if (!in_array($categoria, ['01', '02', '03', '99'])) {
                 $valid = false;
             }
+
             // removo a categoria do calculo de validação
             $corpo = substr_replace($inscricao_estadual, '', 2, 2);
+            $corpo = str_pad($corpo , 9, '0' , STR_PAD_LEFT);
+        }
+
+        // se o corpo não tiver 9 digitos não é valido
+        if ($valid && strlen($inscricao_estadual) != 9) {
+            $valid = false;
         }
 
         if ($valid && !self::calculaDigito($corpo)) {
@@ -55,8 +59,10 @@ class Tocantins extends Ceara
      */
     protected static function checkNova($inscricao_estadual)
     {
+        $inscricao_estadual = str_pad($inscricao_estadual , 9, '0' , STR_PAD_LEFT);
+
         // se não tiver 9 digitos não é valido
-        return strlen($inscricao_estadual) == 9 && static::calculaDigitoNova($inscricao_estadual);
+        return static::calculaDigitoNova($inscricao_estadual);
     }
 
     /**

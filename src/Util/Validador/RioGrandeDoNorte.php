@@ -18,14 +18,20 @@ class RioGrandeDoNorte implements ValidadorInteface
     public static function check($inscricao_estadual)
     {
         $valid = true;
-        // se não tiver 9 ou 10 digitos não é valido
-        $length = strlen($inscricao_estadual);
-        if ($length != 9 && $length != 10) {
-            $valid = false;
-        }
+
         if ($valid && substr($inscricao_estadual, 0, 2) != '20') {
             $valid = false;
         }
+
+        $inscricao_estadual = str_pad($inscricao_estadual , 9 , '0' , STR_PAD_LEFT);
+
+        // se não tiver 9 ou 10 digitos não é valido
+        $length = strlen($inscricao_estadual);
+
+        if ($length != 9 && $length != 10) {
+            $valid = false;
+        }
+
         if ($valid && !self::calculaDigito($inscricao_estadual)) {
             $valid = false;
         }

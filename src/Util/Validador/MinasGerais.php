@@ -18,13 +18,18 @@ class MinasGerais implements ValidadorInteface
     public static function check($inscricao_estadual)
     {
         $valid = true;
+
+        $inscricao_estadual = str_pad($inscricao_estadual , 13, '0' , STR_PAD_LEFT);
+
         // se não tiver 13 digitos não é valido
         if (strlen($inscricao_estadual) != 13) {
             $valid = false;
         }
+
         if ($valid && !self::calculaDigito($inscricao_estadual)) {
             $valid = false;
         }
+
         return $valid;
     }
 

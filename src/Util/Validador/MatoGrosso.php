@@ -18,15 +18,19 @@ class MatoGrosso implements ValidadorInteface
     public static function check($inscricao_estadual)
     {
         $valid = true;
+
+        $inscricao_estadual = str_pad($inscricao_estadual , 11, '0' , STR_PAD_LEFT);
+
         // se não tiver 11 digitos não é valido
         if (strlen($inscricao_estadual) != 11) {
             $valid = false;
         }
+
         if ($valid && !self::calculaDigito($inscricao_estadual)) {
             $valid = false;
         }
-        return $valid;
 
+        return $valid;
     }
 
     /**

@@ -24,18 +24,23 @@ class Acre implements ValidadorInteface
     public static function check($inscricao_estadual)
     {
         $valid = true;
+
+        if (substr($inscricao_estadual, 0, 2) != '01') {
+            $valid = false;
+        }
+
+        $inscricao_estadual = str_pad($inscricao_estadual , 13 , '0' , STR_PAD_LEFT);
+
         // se não tiver 13 digitos não é valido
         if (strlen($inscricao_estadual) != 13) {
             $valid = false;
         }
-        if ($valid && substr($inscricao_estadual, 0, 2) != '01') {
-            $valid = false;
-        }
+
         if ($valid && !self::calculaDigitos($inscricao_estadual)) {
             $valid = false;
         }
-        return $valid;
 
+        return $valid;
     }
 
     /**
