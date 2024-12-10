@@ -19,11 +19,11 @@ class Amapa implements ValidadorInteface
     {
         $valid = true;
 
+        $inscricao_estadual = str_pad($inscricao_estadual , 9, '0' , STR_PAD_LEFT);
+
         if (substr($inscricao_estadual, 0, 2) != '03') {
             $valid = false;
         }
-
-        $inscricao_estadual = str_pad($inscricao_estadual , 9, '0' , STR_PAD_LEFT);
 
         // se não tiver 9 digitos não é valido
         if (strlen($inscricao_estadual) != 9) {

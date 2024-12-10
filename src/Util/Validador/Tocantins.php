@@ -28,6 +28,8 @@ class Tocantins extends Ceara
     {
         $valid = true;
 
+        $inscricao_estadual = str_pad($inscricao_estadual, 11, '0' , STR_PAD_LEFT);
+
         if ($valid) {
             $categoria = substr($inscricao_estadual, 2, 2);
             if (!in_array($categoria, ['01', '02', '03', '99'])) {
@@ -36,7 +38,6 @@ class Tocantins extends Ceara
 
             // removo a categoria do calculo de validação
             $corpo = substr_replace($inscricao_estadual, '', 2, 2);
-            $corpo = str_pad($corpo , 9, '0' , STR_PAD_LEFT);
         }
 
         // se o corpo não tiver 9 digitos não é valido
